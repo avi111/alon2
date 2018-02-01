@@ -1,0 +1,45 @@
+/*
+Theme Name: Child Theme
+Template: empty-parent
+ */
+@import "mini.css/src/flavors/mini-lite.scss";
+
+$container-width: 1170px;
+
+body {
+  .container {
+    max-width: $container-width;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+header {
+  header {
+    color: black;
+  }
+}
+
+[id^="header_contact_details"] {
+  ul {
+    list-style: none;
+  }
+}
+
+@mixin headerBlock($rtl) {
+  $isRtl: $rtl=='rtl';
+  $float: if($isRtl, left, right);
+
+  html {
+    &[dir="#{$rtl}"] {
+      #header {
+        .block {
+          float: $float;
+        }
+      }
+    }
+  }
+}
+
+@include headerBlock('rtl');
+@include headerBlock('ltr');

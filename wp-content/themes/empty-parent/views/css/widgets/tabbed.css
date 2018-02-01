@@ -1,0 +1,81 @@
+.wp-tw-tabs .wp-tabbed-nav {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	font-size: 0px;
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	background: #555555;
+}
+
+.wp-tw-tabs .wp-tabbed-nav li {
+	list-style: none;
+	margin: 0px;
+	display: inline-block;
+	white-space: nowrap;
+	width: 33.33333%;
+	background: #555555;
+	vertical-align: middle;
+	text-align: center;
+	margin-right: -1px;
+	border-bottom: 0px;
+	position: relative;
+}
+
+.wp-tw-tabs .wp-tabbed-nav li.tab-active {
+	background: #444444;
+}
+
+.wp-tw-tabs .wp-tabbed-nav li a {
+	display: inline-block;
+	font-size: 14px;
+	padding: 10px 14px;
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	white-space: nowrap;
+	overflow: hidden;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.wp-tw-tabs .wp-tabbed-contents {
+	margin-top: 15px;
+}
+
+.wp-tw-tabs .wp-tabbed-contents .wp-tabbed-cont {
+	display: none;
+}
+
+.wp-tw-tabs .wp-tabbed-contents .wp-tabbed-cont.tab-active {
+	display: block;
+}
+
+.wp-tw-tabs .tab-c-e-title {
+	display: none;
+}
+
+.wp-tw-tabs .widget-title {
+	display: none;
+}
+
+.wp-tw-tabs .widget, .wp-tw-tabs .wp-tabbed-contents .widget{
+	margin-bottom: 0px;
+	margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-top: 0px none;
+    border-bottom: 0px none;
+    border-left: 0px none;
+    border-right: 0px none;
+}
+
+.wp-tw-tabs .customize-partial-edit-shortcut {
+    display: none !important;
+}

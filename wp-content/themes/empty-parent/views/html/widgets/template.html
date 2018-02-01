@@ -1,0 +1,66 @@
+<div class="wrap" id="templates-form">
+    <h2>Templates</h2>
+    <br class="clear">
+    <button @click="addNew" class="button-secondary">Add New</button>
+
+    <div id="poststuff">
+        <div id="post-body" class="metabox-holder columns-2">
+            <div id="post-body-content">
+                <div class="meta-box-sortables ui-sortable">
+                    <form @submit.prevent="onSubmit">
+                        <div class="tablenav top">
+                            <div class="alignleft actions bulkactions">
+                                <label for="bulk-action-selector-top" class="screen-reader-text">Select bulk
+                                    action</label>
+                                <select name="action" id="bulk-action-selector-top" ref="bulk">
+                                    <option value="-1">Bulk Actions</option>
+                                    <option value="bulk-delete">Delete</option>
+                                </select>
+                                <input type="submit" id="doaction" class="button action" value="Apply"
+                                       @click.prevent="bulk">
+                            </div>
+                            <div class="tablenav-pages one-page">
+                                <span class="displaying-num">{{items.length}} items</span>
+                            </div>
+                            <br class="clear">
+                        </div>
+                        <table class="wp-list-table widefat fixed striped wp_templatesitems">
+                            <thead>
+                            <tr>
+                                <td id="cb" class="manage-column column-cb check-column">
+                                    <label class="screen-reader-text" for="cb-select-all-1">Select All</label>
+                                    <input id="cb-select-all-1" type="checkbox">
+                                </td>
+                                <th scope="col" id="template_name"
+                                    class="manage-column column-template_name column-primary sortable"
+                                    :class="asc? 'desc':'asc'">
+                                    <a @click="sortItems">
+                                        <span>template_name</span>
+                                        <span class="sorting-indicator"></span>
+                                    </a>
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="the-list">
+                            <tr v-for="(item, index) in items">
+                                <th scope="row" class="check-column">
+                                    <input type="checkbox" name="bulk-delete[]" :value="item.id"></th>
+                                <td class="template_name column-template_name has-row-actions column-primary"
+                                    data-colname="template_name">
+                                    <a v-if="idleState(index)" @click.prevent="edit(index)">{{item.name}}</a>
+                                    <div v-if="editState(index)">
+                                        <input :value="items[index].name"/>
+                                        <button @click.prevent="submit(index,$event)">submit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br class="clear">
+    </div>
+</div>
