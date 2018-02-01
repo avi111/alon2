@@ -3,11 +3,13 @@
 class orm_dictionary_languages implements crud {
 	protected $id;
 protected $language;
+protected $spelling;
 protected $locale;
 protected $short_name;
 protected $rtl;
 	function get_id(){ return $this->id; }
 function get_language(){ return $this->language; }
+function get_spelling(){ return $this->spelling; }
 function get_locale(){ return $this->locale; }
 function get_short_name(){ return $this->short_name; }
 function get_rtl(){ return $this->rtl; }
@@ -32,6 +34,7 @@ protected function get_instance($id){
 	} else {
 		$this->id = $results->id;
 $this->language = $results->language;
+$this->spelling = $results->spelling;
 $this->locale = $results->locale;
 $this->short_name = $results->short_name;
 $this->rtl = $results->rtl;

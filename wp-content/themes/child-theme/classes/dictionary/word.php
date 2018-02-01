@@ -47,7 +47,7 @@ class word {
 	 */
 	protected function setLanguage() {
 		global $wpdb;
-		$this->language = new language_handler($this->locale);
+		$this->language = new language_handler( $this->locale );
 	}
 
 	/**
@@ -67,6 +67,8 @@ class word {
 					} else {
 						$this->value = $results['english_value'];
 					}
+				} else {
+					$this->value = $this->key;
 				}
 			} else {
 				$table       = \orm_dictionary_values::getTable();

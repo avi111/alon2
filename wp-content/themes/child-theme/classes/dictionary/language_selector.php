@@ -35,7 +35,8 @@ class language_selector {
 			'id'         => null,
 			'language'   => 'english',
 			'locale'     => 'en_US',
-			'short_name' => 'en'
+			'short_name' => 'en',
+			'spelling' => 'English'
 		);
 
 		$this->languages = apply_filters( 'sort_languages', $this->languages );

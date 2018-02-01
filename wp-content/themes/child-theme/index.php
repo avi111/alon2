@@ -5,15 +5,8 @@
  * Date: 26/08/2017
  * Time: 21:45
  */
-use \dictionary\word as word;
 
 get_header();
-
-$word= new word('address');
-echo $word->getValue();
-
-$word= new word('address',false);
-echo $word->getValue();
 
 if ( is_home() || is_front_page() ) {
 	dynamic_sidebar( 'homepage' );

@@ -15,6 +15,7 @@ class language_handler {
 	protected $language;
 	protected $short_name;
 	protected $rtl;
+	protected $spelling;
 	static protected $cache = array();
 
 	/**
@@ -44,12 +45,12 @@ class language_handler {
 		if ( is_numeric( $input ) ) {
 			$cached = self::$cache[ $input ] ?? null;
 		} else {
-			$cached = array_filter( self::$cache, function ( $item ) use($input) {
+			$cached = array_filter( self::$cache, function ( $item ) use ( $input ) {
 				return $input == $item['locale'];
 			} );
 
-			$cached=array_values($cached);
-			$cached=array_shift($cached);
+			$cached = array_values( $cached );
+			$cached = array_shift( $cached );
 		}
 
 		if ( $cached ) {
@@ -68,6 +69,7 @@ class language_handler {
 			$this->locale     = $record['locale'] ?? null;
 			$this->short_name = $record['short_name'] ?? null;
 			$this->rtl        = $record['rtl'] ?? null;
+			$this->spelling   = $record['spelling'] ?? null;
 		}
 
 		self::$cache[ $this->id ] = $record;
@@ -83,6 +85,7 @@ class language_handler {
 			$this->locale     = $record['locale'] ?? null;
 			$this->short_name = $record['short_name'] ?? null;
 			$this->rtl        = $record['rtl'] ?? null;
+			$this->spelling   = $record['spelling'] ?? null;
 		}
 
 		self::$cache[ $this->id ] = $record;
@@ -121,5 +124,12 @@ class language_handler {
 	 */
 	public function getRtl() {
 		return $this->rtl;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getSpelling() {
+		return $this->spelling;
 	}
 }

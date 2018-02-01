@@ -35,7 +35,7 @@ class language_selector extends component {
 			$language_selector = langsel::get_instance();
 
 			foreach ( $this->languages as $language ) {
-				$array[ ucfirst( $language['language'] ) ] = $language_selector->get_url( $about, $language['locale'] );
+				$array[ ucfirst( $language['spelling'] ) ] = $language_selector->get_url( $about, $language['locale'] );
 			}
 
 			$this->array = $array;

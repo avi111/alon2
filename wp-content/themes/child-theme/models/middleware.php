@@ -42,15 +42,6 @@ add_filter( 'edit_primary_key', function ( $original, $table ) {
 	return $original;
 }, 10, 2 );
 
-add_filter( 'default_locale', function () {
-	return 'he_IL';
-} );
-
-add_filter( 'language_attributes', function ( $output, $doctype ) {
-	$language = new \dictionary\language_handler();
-	if ( $language->getRtl() ) {
-		$output .= ' dir="rtl"';
-	}
-
-	return $output;
-}, 10, 2 );
+require_once 'locale.php';
+require_dir( CHILD_ROOT . 'traits', 'traits/' );
+require_dir( CHILD_ROOT . 'interfaces', 'interfaces/' );
