@@ -1172,8 +1172,8 @@ header header {
   list-style: none;
   padding: 0; }
 
-html[dir="rtl"] #header .block {
+html[dir="rtl"] #header-top .block {
   float: left; }
 
-html[dir="ltr"] #header .block {
+html[dir="ltr"] #header-top .block {
   float: right; }

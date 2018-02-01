@@ -67,8 +67,6 @@ class word {
 					} else {
 						$this->value = $results['english_value'];
 					}
-				} else {
-					$this->value = $this->key;
 				}
 			} else {
 				$table       = \orm_dictionary_values::getTable();
@@ -79,6 +77,10 @@ class word {
 				if ( ! $this->value ) {
 					$this->value = $this->key_record->getValue();
 				}
+			}
+
+			if(!$this->value) {
+				$this->value = $this->key;
 			}
 
 			self::$cache[ $this->key ] = $this->value;

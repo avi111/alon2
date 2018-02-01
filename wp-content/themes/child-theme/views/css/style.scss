@@ -33,7 +33,7 @@ header {
 
   html {
     &[dir="#{$rtl}"] {
-      #header {
+      #header-top {
         .block {
           float: $float;
         }
