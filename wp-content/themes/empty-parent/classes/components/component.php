@@ -33,7 +33,7 @@ abstract class component {
 		$locate    = locate_template( $path );
 		$id        = method_exists( static::class, 'id' );
 		if ( $id ) {
-			$hash = sanitize_title( $this->basename() ) . '_' . spl_object_hash( $this );
+			$hash = sanitize_title( \util\util::kebab_case_from_camel_case( $this->basename() ) ) . '_' . spl_object_hash( $this );
 			echo sprintf( '<div id="%s">', $hash );
 		}
 		if ( $extension != 'php' ) {

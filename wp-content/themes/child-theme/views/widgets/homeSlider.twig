@@ -1,11 +1,18 @@
 <div>
     <div class="row">
         <div id="home-slider">
-            {% for key,slide in slides %}
-                <div data="{{ key }}" v-if="active=={{ key }} }}">
-                    {{ slide }}
-                </div>
-            {% endfor %}
+            <progress :value="progress" :max="maxProgress"></progress>
+            <section total="{{ slides | length }}">
+                {% for key,slide in slides %}
+                    <div data="{{ key }}" v-if="active=={{ key }}">
+                        {{ slide | raw }}
+                    </div>
+                {% endfor %}
+            </section>
+            <div class="controls">
+                <span class="left" @click="prev">&larr;</span>
+                <span class="right" @click="next">&rarr;</span>
+            </div>
         </div>
     </div>
 </div>

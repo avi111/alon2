@@ -1177,3 +1177,20 @@ html[dir="rtl"] #header-top .block {
 
 html[dir="ltr"] #header-top .block {
   float: right; }
+
+#home-slider {
+  width: 100%;
+  position: relative; }
+  #home-slider img {
+    width: 100%;
+    height: 60vh;
+    -o-object-fit: cover;
+       object-fit: cover; }
+  #home-slider .controls {
+    position: absolute;
+    top: 50%;
+    width: 100%; }
+    #home-slider .controls .left {
+      float: left; }
+    #home-slider .controls .right {
+      float: right; }
