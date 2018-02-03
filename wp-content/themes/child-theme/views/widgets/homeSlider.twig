@@ -1,0 +1,11 @@
+<div>
+    <div class="row">
+        <div id="home-slider">
+            {% for key,slide in slides %}
+                <div data="{{ key }}" v-if="active=={{ key }} }}">
+                    {{ slide }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

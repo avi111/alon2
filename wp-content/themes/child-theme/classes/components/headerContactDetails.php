@@ -9,7 +9,7 @@
 namespace components;
 
 
-class header_contact_details extends translated {
+class headerContactDetails extends translated {
 
 	use \id;
 	protected $atts;
