@@ -60,6 +60,7 @@ class post {
 	public function getSingleMeta( $key ) {
 		if ( isset( $this->customs[ $key ] ) ) {
 			$array = $this->customs[ $key ];
+
 			return array_pop( $array );
 		} else {
 			return false;
@@ -104,8 +105,17 @@ class post {
 		\util\util::showImage( $this->image[0] );
 	}
 
-	public function getIMage() {
-		return $this->image[0];
+	public function getIMage( $size = false ) {
+		if ( $size ) {
+			$array = wp_get_attachment_image_src( $this->image_id, $size );
+			$image = $array[0] ?? null;
+		}
+
+		if ( ! $image ) {
+			$image = $this->image[0];
+		}
+
+		return $image;
 	}
 
 

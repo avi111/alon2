@@ -1165,6 +1165,11 @@ body .container {
   display: block;
   margin: 0 auto; }
 
+#speciality > div {
+  max-width: 1170px;
+  display: block;
+  margin: 0 auto; }
+
 header header {
   color: black; }
 
@@ -1194,3 +1199,11 @@ html[dir="ltr"] #header-top .block {
       float: left; }
     #home-slider .controls .right {
       float: right; }
+
+.flex-center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }

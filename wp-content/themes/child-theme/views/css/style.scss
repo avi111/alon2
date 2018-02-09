@@ -6,11 +6,21 @@ Template: empty-parent
 
 $container-width: 1170px;
 
+@mixin container() {
+  max-width: $container-width;
+  display: block;
+  margin: 0 auto;
+}
+
 body {
   .container {
-    max-width: $container-width;
-    display: block;
-    margin: 0 auto;
+    @include container;
+  }
+}
+
+#speciality {
+  > div {
+    @include container;
   }
 }
 
@@ -55,13 +65,18 @@ header {
   }
   .controls {
     position: absolute;
-    top:50%;
-    width:100%;
+    top: 50%;
+    width: 100%;
     .left {
-      float:left;
+      float: left;
     }
     .right {
-      float:right;
+      float: right;
     }
   }
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
 }

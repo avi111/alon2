@@ -292,7 +292,7 @@ class WP_Tabbed_Widget extends WP_Widget {
 						$data['settings'] = array();
 					}
 
-					if ( isset( $data['settings']['title'] ) ) {
+					if ( !isset( $data['settings']['title'] ) ) {
 						$data['settings']['title'] = '';
 					}
 
