@@ -13,23 +13,38 @@ class key_handler {
 	protected $id;
 	protected $key;
 	protected $value;
+	protected $unsanitized;
 
 	/**
 	 * key_handler constructor.
 	 *
 	 * @param $key
 	 */
-	public function __construct( $key ) {
+	public function __construct( $key,$unsanitized=false ) {
 		$this->key = $key;
+		$this->unsanitized=$unsanitized;
 
 		global $wpdb;
 		$table = \orm_dictionary_keys::getTable();
 
 		$record = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE dictionary_key=%s", $key ), ARRAY_A );
 		if ( $record ) {
-			$this->id=$record['id'] ?? null;
-			$this->key-$record['dictionary_key'] ?? null;
+			$this->id = $record['id'] ?? null;
+			$this->key - $record['dictionary_key'] ?? null;
 			$this->value = $record['value'] ?? null;
+		}
+
+		if ( ! $this->id ) {
+			$insert = $wpdb->insert( $table,
+				array(
+					'dictionary_key' => $this->key,
+					'value'          => $this->unsanitized
+				),
+				array(
+					'%s',
+					'%s'
+				)
+			);
 		}
 	}
 

@@ -1,5 +1,8 @@
 <?php
-$image   = $widget->getImage();
-$content = $widget->getContent();
-$title   = $widget->getTitle();
-$url   = $widget->getUrl();
+$translations = $widget->translations();
+
+$image = $widget->getImage();
+list( $title, $content ) = array_values( $translations );
+
+$content = stripslashes ( apply_filters( 'the_content', $content ) );
+$url     = $widget->getUrl();

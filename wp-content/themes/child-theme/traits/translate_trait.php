@@ -10,14 +10,14 @@ use \dictionary\word as word;
 
 trait translate {
 	public function translate( $key ) {
-		$word = new word( $key );
+		$word = new word( $key,false );
 
 		return $word->getValue();
 	}
 
 	public function translations() {
 		foreach ( $this->translations_keys() as $translation ) {
-			$translations[ str_replace( '-', '_', sanitize_title( $translation ) ) ] = $this->translate( $translation );
+			$translations[ word::make_key($translation) ] = $this->translate( word::make_key($translation) );
 		}
 
 		return $translations;

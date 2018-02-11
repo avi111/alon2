@@ -18,3 +18,5 @@ add_filter( 'language_attributes', function ( $output, $doctype ) {
 
 	return $output;
 }, 10, 2 );
+
+new dictionary\admin();

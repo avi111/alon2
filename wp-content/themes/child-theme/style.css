@@ -1169,6 +1169,11 @@ body .container {
   max-width: 1170px;
   display: block;
   margin: 0 auto; }
+  #speciality > div > div {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    width: 0; }
 
 header header {
   color: black; }

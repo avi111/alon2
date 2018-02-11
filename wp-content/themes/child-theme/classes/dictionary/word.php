@@ -11,6 +11,7 @@ namespace dictionary;
 class word {
 	protected static $cache;
 	protected $key;
+	protected $unsanitized;
 	protected $language;
 	protected $value;
 	protected $locale;
@@ -24,10 +25,19 @@ class word {
 	 */
 	public function __construct( $key, $direct = true ) {
 		$this->direct = $direct;
-		$this->key    = $key;
+		$this->key    = self::make_key( $key );
+		$this->unsanitized=$key;
 		if ( ! $direct ) {
 			$this->bootstrap();
 		}
+	}
+
+	static public function make_key( $key ) {
+		$key = str_replace( '-', '_', sanitize_title( $key ) );
+		$key = strtolower( $key );
+		$key=substr($key,0,50);
+
+		return $key;
 	}
 
 	public function cached() {
@@ -79,7 +89,8 @@ class word {
 				}
 			}
 
-			if(!$this->value) {
+			if ( ! $this->value ) {
+				$this->setValue();
 				$this->value = $this->key;
 			}
 
@@ -93,7 +104,7 @@ class word {
 	 * @param mixed $value
 	 */
 	protected function setValue() {
-		$key              = new key_handler( $this->key );
+		$key              = new key_handler( $this->key,$this->unsanitized );
 		$this->key_record = $key;
 	}
 

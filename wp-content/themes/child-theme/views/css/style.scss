@@ -21,6 +21,10 @@ body {
 #speciality {
   > div {
     @include container;
+    >div {
+      flex: 1;
+      width: 0;
+    }
   }
 }
 

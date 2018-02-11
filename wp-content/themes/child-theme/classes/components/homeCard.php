@@ -11,7 +11,7 @@ namespace components;
 
 use post\post;
 
-class homeCard extends component {
+class homeCard extends translated {
 
 	protected $atts;
 	protected $title;
@@ -58,7 +58,7 @@ class homeCard extends component {
 	public function getContent() {
 		if ( ! $this->content ) {
 			$content       = $this->atts['content'] ?? null;
-			$this->content = apply_filters( 'the_content', $content );
+			$this->content = $content;
 		}
 
 		return $this->content;
@@ -92,5 +92,11 @@ class homeCard extends component {
 		return $this->url;
 	}
 
+	public function translations_keys() {
+		return array(
+			$this->getTitle(),
+			$this->getContent()
+		);
+	}
 
 }

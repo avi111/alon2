@@ -20,7 +20,11 @@ class title {
 	 */
 	public function __construct() {
 		global $post;
-		$this->page_title = ( new word( $post->post_title ) )->getValue();
+		$title = $post->post_title;
+		if ( is_front_page() ) {
+			$title = 'home';
+		}
+		$this->page_title = ( new word( $title ) )->getValue();
 		$this->site_name  = ( new word( get_bloginfo() ) )->getValue();
 		$this->set_html_title();
 	}
