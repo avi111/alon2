@@ -8,6 +8,7 @@
 
 namespace components;
 
+use \wpdb\wpdb as wpdb;
 
 class homeSlider extends component {
 
@@ -43,7 +44,9 @@ class homeSlider extends component {
 			$this->images = array();
 
 			global $wpdb;
-			$this->images = $wpdb->get_results( "SELECT p.ID, p.post_title,p.post_excerpt FROM `{$wpdb->prefix}home_slider` s INNER JOIN $wpdb->posts p ON s.id=p.ID ORDER BY priority" );
+
+			$db=wpdb::get();
+			$this->images = $db->get_results( "SELECT p.ID, p.post_title,p.post_excerpt FROM `{$wpdb->prefix}home_slider` s INNER JOIN $wpdb->posts p ON s.id=p.ID ORDER BY priority" );
 		}
 
 		return $this->images;

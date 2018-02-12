@@ -2,7 +2,7 @@
 Theme Name: Child Theme
 Template: empty-parent
  */
-@import "mini.css/src/flavors/mini-lite.scss";
+@import "mini.css/src/flavors/mini-default.scss";
 
 $container-width: 1170px;
 
@@ -12,18 +12,63 @@ $container-width: 1170px;
   margin: 0 auto;
 }
 
+@mixin just-large() {
+  @media screen and (min-width: #{$grid-large-breakpoint}) {
+    @content
+  }
+}
+
+@mixin not-large() {
+  @media screen and (max-width: #{$grid-large-breakpoint}) {
+    @content
+  }
+}
+
+@mixin medium-and-large() {
+  @media screen and (min-width: #{$grid-medium-breakpoint}) {
+    @content
+  }
+}
+
+@mixin xs-and-small() {
+  @media screen and (max-width: #{$grid-medium-breakpoint}) {
+    @content
+  }
+}
+
+@mixin not-xs {
+  @media screen and (min-width: #{$grid-small-breakpoint}) {
+    @content
+  }
+}
+
+@mixin just-xs {
+  @media screen and (max-width: #{$grid-small-breakpoint}) {
+    @content
+  }
+}
+
 body {
   .container {
     @include container;
+    &.row {
+      display: flex;
+    }
   }
 }
 
 #speciality {
   > div {
     @include container;
-    >div {
+    @include xs-and-small {
+      flex-flow: column;
+    }
+    > div {
       flex: 1;
       width: 0;
+      @include xs-and-small {
+        width: initial;
+      }
     }
   }
 }
@@ -83,4 +128,13 @@ header {
 .flex-center {
   align-items: center;
   justify-content: center;
+}
+
+.drawer {
+  header {
+    white-space: initial;
+    a {
+      display: block;
+    }
+  }
 }

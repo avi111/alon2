@@ -1,0 +1,1 @@
+a:3:{s:2:"id";s:2:"15";s:14:"dictionary_key";s:50:"glaucoma_is_a_group_of_eye_diseases_all_of_which_h";s:5:"value";s:196:"Glaucoma is a group of eye diseases, all of which have damage to the optic nerve. In the initial stages, the damage causes damage to the peripheral vision, and the patient does not feel this harm.";}

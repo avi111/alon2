@@ -8,6 +8,7 @@
 
 namespace dictionary;
 
+use \wpdb\wpdb as wpdb;
 
 class language_selector {
 	protected static $instance;

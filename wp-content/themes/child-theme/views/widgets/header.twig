@@ -1,9 +1,9 @@
 <div class="container" id="header-top">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-md-4 col-sm-12">
             {{ 'logo' | component }}
         </div>
-        <div class="col-sm-8">
+        <div class="col-md-8 col-sm-12">
             <div class="block">
                 {{ 'headerContactDetails' | component }}
                 {{ 'languageSelector' | component }}
@@ -14,9 +14,21 @@
 <header id="header" role="banner" class="sticky">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 hidden-sm">
                 {{ 'headerMenu' | component }}
             </div>
         </div>
     </div>
 </header>
+
+<div class="col-sm-12 hidden-md hidden-lg">
+    <header>
+        <label for="drawer-checkbox" class="button drawer-toggle"></label>
+    </header>
+
+    <input type="checkbox" id="drawer-checkbox">
+    <nav class="drawer">
+        <label for="drawer-checkbox" class="close"></label>
+        {{ 'headerMenu' | component }}
+    </nav>
+</div>

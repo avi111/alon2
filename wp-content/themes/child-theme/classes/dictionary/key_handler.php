@@ -8,6 +8,7 @@
 
 namespace dictionary;
 
+use \wpdb\wpdb as wpdb;
 
 class key_handler {
 	protected $id;
@@ -27,7 +28,8 @@ class key_handler {
 		global $wpdb;
 		$table = \orm_dictionary_keys::getTable();
 
-		$record = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE dictionary_key=%s", $key ), ARRAY_A );
+		$db=wpdb::get();
+		$record = $db->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE dictionary_key=%s", $key ), ARRAY_A );
 		if ( $record ) {
 			$this->id = $record['id'] ?? null;
 			$this->key - $record['dictionary_key'] ?? null;

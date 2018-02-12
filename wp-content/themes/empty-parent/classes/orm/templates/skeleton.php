@@ -1,5 +1,7 @@
 <?php
 
+use \wpdb\wpdb as wpdb;
+
 class name implements crud {
 	private $attributes;
 	private $getters;
@@ -84,7 +86,8 @@ class name implements crud {
 			$query = $wpdb->prepare( $query, $limit, $offset );
 		}
 
-		$results = $wpdb->get_results( $query );
+		$db=wpdb::get();
+		$results = $db->get_results( $query );
 
 		return $results;
 	}

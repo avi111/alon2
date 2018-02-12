@@ -1,0 +1,1 @@
+a:3:{s:6:"locale";s:5:"he_IL";s:10:"lang_value";s:8:"ראשי";s:13:"english_value";s:0:"";}

@@ -106,6 +106,8 @@ class post {
 	}
 
 	public function getIMage( $size = false ) {
+		$image=false;
+
 		if ( $size ) {
 			$array = wp_get_attachment_image_src( $this->image_id, $size );
 			$image = $array[0] ?? null;

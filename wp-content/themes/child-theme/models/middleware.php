@@ -45,3 +45,4 @@ add_filter( 'edit_primary_key', function ( $original, $table ) {
 require_once 'locale.php';
 require_dir( CHILD_ROOT . 'traits', 'traits/' );
 require_dir( CHILD_ROOT . 'interfaces', 'interfaces/' );
+new \fragments\setup();

@@ -248,20 +248,9 @@ class init {
 				return $content;
 			} else {
 				ob_start();
-				$locate = locate_template( WIDGETS . "$shortcode.php" );
-				if ( $locate ) {
-					include_once get_stylesheet_directory() . WIDGETS . "$shortcode.php";
-				}
-
-				foreach ( \engines\controller::$engines as $engine ) {
-					$class  = sprintf( '\engines\%s\%s', $engine, $engine );
-					$path   = WIDGETS . "$shortcode.$engine";
-					$locate = locate_template( $path );
-					if ( of_get_option( 'widgets_' . $engine ) && $locate && class_exists( $class ) ) {
-						$viewbag = apply_filters( $shortcode . '_widget', $atts );
-						echo $class::execute( '/' . $path, $viewbag );
-					}
-				}
+				$class  = "\components\\$shortcode";
+				$widget = new $class( $atts );
+				$widget->show();
 
 				$output = do_shortcode( ob_get_clean() );
 				if ( ! file_exists( $cache_path ) ) {

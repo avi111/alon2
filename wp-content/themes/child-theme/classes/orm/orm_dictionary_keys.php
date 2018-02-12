@@ -1,47 +1,39 @@
 <?php
 
+use \wpdb\wpdb as wpdb;
+
 class orm_dictionary_keys implements crud {
 	protected $id;
-	protected $dictionary_key;
-	protected $value;
-
-	function get_id() {
-		return $this->id;
-	}
-
-	function get_dictionary_key() {
-		return $this->dictionary_key;
-	}
-
-	function get_value() {
-		return $this->value;
-	}
-
+protected $dictionary_key;
+protected $value;
+	function get_id(){ return $this->id; }
+function get_dictionary_key(){ return $this->dictionary_key; }
+function get_value(){ return $this->value; }
 	protected $empty;
-
-	public function __construct( $id = 0 ) {
-		$this->empty = false;
-		if ( ! $id ) {
-			return;
-		}
-		$this->get_instance( $id );
+	
+public function __construct($id=0){
+	$this->empty=false;
+	if(!$id){
+		return;
 	}
+	$this->get_instance($id);
+}
 
-	protected function get_instance( $id ) {
-		global $wpdb;
-		$query   = "SELECT * FROM wp_dictionary_keys WHERE id=%s";
-		$prepare = $wpdb->prepare( $query, $id );
-		$results = $wpdb->get_results( $prepare );
-		$results = array_pop( $results );
-		if ( ! $results ) {
-			$this->empty = true;
-		} else {
-			$this->id             = $results->id;
-			$this->dictionary_key = $results->dictionary_key;
-			$this->value          = $results->value;
-		}
+protected function get_instance($id){
+	global $wpdb;
+	$query="SELECT * FROM wp_dictionary_keys WHERE id=%s";
+	$prepare=$wpdb->prepare($query,$id);
+	$db=\wpdb\wpdb::get();
+	$results=$db->get_results($prepare);
+	$results=array_pop($results);
+	if(!$results){
+		$this->empty=true;
+	} else {
+		$this->id = $results->id;
+$this->dictionary_key = $results->dictionary_key;
+$this->value = $results->value;
 	}
-
+}
 	static protected $table;
 	static protected $primary;
 	static protected $columns;
@@ -121,7 +113,8 @@ class orm_dictionary_keys implements crud {
 			$query = $wpdb->prepare( $query, $limit, $offset );
 		}
 
-		$results = $wpdb->get_results( $query );
+		$db=wpdb::get();
+		$results = $db->get_results( $query );
 
 		return $results;
 	}

@@ -51,7 +51,6 @@ function get_component( $widget, $atts = array() ) {
 		$class  = "\components\\$widget";
 		$widget = new $class( $atts );
 		$widget->show();
-
 	} else {
 		echo $output;
 	}

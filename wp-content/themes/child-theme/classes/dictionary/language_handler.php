@@ -8,6 +8,7 @@
 
 namespace dictionary;
 
+use \wpdb\wpdb as wpdb;
 
 class language_handler {
 	protected $id;
@@ -78,7 +79,8 @@ class language_handler {
 	protected function set_locale( $input ) {
 		global $wpdb;
 		$table  = \orm_dictionary_languages::getTable();
-		$record = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE `locale`=%s", $input ), ARRAY_A );
+		$db=wpdb::get();
+		$record = $db->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE `locale`=%s", $input ), ARRAY_A );
 		if ( $record ) {
 			$this->id         = $record['id'] ?? null;
 			$this->language   = $record['language'] ?? null;

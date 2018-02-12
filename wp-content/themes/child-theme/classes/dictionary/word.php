@@ -8,6 +8,8 @@
 
 namespace dictionary;
 
+use \wpdb\wpdb as wpdb;
+
 class word {
 	protected static $cache;
 	protected $key;
@@ -24,9 +26,9 @@ class word {
 	 * @param $key
 	 */
 	public function __construct( $key, $direct = true ) {
-		$this->direct = $direct;
-		$this->key    = self::make_key( $key );
-		$this->unsanitized=$key;
+		$this->direct      = $direct;
+		$this->key         = self::make_key( $key );
+		$this->unsanitized = $key;
 		if ( ! $direct ) {
 			$this->bootstrap();
 		}
@@ -35,7 +37,7 @@ class word {
 	static public function make_key( $key ) {
 		$key = str_replace( '-', '_', sanitize_title( $key ) );
 		$key = strtolower( $key );
-		$key=substr($key,0,50);
+		$key = substr( $key, 0, 50 );
 
 		return $key;
 	}
@@ -68,9 +70,10 @@ class word {
 
 		if ( ! $this->value ) {
 			global $wpdb;
+			$db=wpdb::get();
 			if ( $this->direct ) {
 				$prepared = $wpdb->prepare( "SELECT l.`locale`,v.`value` as lang_value, k.`value` as `english_value` FROM `{$wpdb->prefix}dictionary_values` v INNER JOIN `{$wpdb->prefix}dictionary_languages` l ON v.`language`=l.id INNER JOIN `{$wpdb->prefix}dictionary_keys` k ON v.`dictionary_key`=k.id WHERE k.`dictionary_key`=%s", $this->key );
-				$results  = $wpdb->get_row( $prepared, ARRAY_A );
+				$results  = $db->get_row( $prepared, ARRAY_A );
 				if ( $results ) {
 					if ( $results['locale'] == get_locale() ) {
 						$this->value = $results['lang_value'];
@@ -83,7 +86,7 @@ class word {
 				$lang        = $this->language->getId();
 				$key         = $this->key_record->getId();
 				$prepared    = $wpdb->prepare( "SELECT `value` FROM $table WHERE `language`=%d AND `dictionary_key`=%d", $lang, $key );
-				$this->value = $wpdb->get_var( $prepared );
+				$this->value = $db->get_var( $prepared );
 				if ( ! $this->value ) {
 					$this->value = $this->key_record->getValue();
 				}
@@ -97,14 +100,22 @@ class word {
 			self::$cache[ $this->key ] = $this->value;
 		}
 
-		return $this->value;
+		$return = stripslashes( $this->value );
+
+		$newlines = explode( '  ', $return );
+
+		if ( count( $newlines ) ) {
+			$return = implode( PHP_EOL.PHP_EOL, $newlines );
+		}
+
+		return $return;
 	}
 
 	/**
 	 * @param mixed $value
 	 */
 	protected function setValue() {
-		$key              = new key_handler( $this->key,$this->unsanitized );
+		$key              = new key_handler( $this->key, $this->unsanitized );
 		$this->key_record = $key;
 	}
 

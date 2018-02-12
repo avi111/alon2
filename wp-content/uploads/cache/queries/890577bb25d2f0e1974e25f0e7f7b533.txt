@@ -1,0 +1,1 @@
+a:3:{s:2:"id";s:2:"14";s:14:"dictionary_key";s:50:"cataract_is_a_disease_of_the_eye_that_is_expressed";s:5:"value";s:171:"Cataract is a disease of the eye that is expressed in the turbidity of the eye lens. The disease is one of the main reasons for the decline in vision in the Western world.";}

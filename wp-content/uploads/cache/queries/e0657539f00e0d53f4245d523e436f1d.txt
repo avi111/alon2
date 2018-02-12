@@ -1,0 +1,1 @@
+a:6:{s:2:"id";s:1:"1";s:8:"language";s:6:"hebrew";s:8:"spelling";s:10:"עברית";s:6:"locale";s:5:"he_IL";s:10:"short_name";s:2:"he";s:3:"rtl";s:1:"1";}

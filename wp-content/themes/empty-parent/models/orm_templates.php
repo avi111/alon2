@@ -1,5 +1,7 @@
 <?php
 
+use \wpdb\wpdb as wpdb;
+
 if ( ! class_exists( 'orm_templates' ) ) {
 	class orm_templates implements crud {
 		protected $id;
@@ -32,7 +34,8 @@ if ( ! class_exists( 'orm_templates' ) ) {
 			global $wpdb;
 			$query   = "SELECT * FROM wp5k_templates WHERE id=%s";
 			$prepare = $wpdb->prepare( $query, $id );
-			$results = $wpdb->get_results( $prepare );
+			$db      = wpdb::get();
+			$results = $db->get_results( $prepare );
 			$results = array_pop( $results );
 			if ( ! $results ) {
 				$this->empty = true;
@@ -119,7 +122,8 @@ if ( ! class_exists( 'orm_templates' ) ) {
 				$query = $wpdb->prepare( $query, $limit, $offset );
 			}
 
-			$results = $wpdb->get_results( $query );
+			$db      = wpdb::get();
+			$results = $db->get_results( $query );
 
 			return $results;
 		}

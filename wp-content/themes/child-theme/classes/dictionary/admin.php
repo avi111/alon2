@@ -8,6 +8,7 @@
 
 namespace dictionary;
 
+use \wpdb\wpdb as wpdb;
 
 class admin {
 
@@ -51,17 +52,20 @@ class admin {
 			}
 
 			global $wpdb;
+			$db=wpdb::get();
+
 			foreach ( $data as $key => $languages ) {
 				foreach ( $languages as $language => $value ) {
 					if ( ! is_null( $table[ $key ][ $language ] ) ) {
 						$sql  = $wpdb->prepare( "UPDATE {$wpdb->prefix}dictionary_values v INNER JOIN {$wpdb->prefix}dictionary_keys k ON v.dictionary_key=k.id SET v.value=%s WHERE k.dictionary_key=%s AND v.language=%d", $value, $key, $language );
-						$done = $wpdb->query( $sql );
+
+						$done = $db->query( $sql );
 					} else {
 						$sql  = $wpdb->prepare( "INSERT INTO {$wpdb->prefix}dictionary_values SET 
                                                             language=%d,
                                                             dictionary_key=(SELECT id FROM {$wpdb->prefix}dictionary_keys WHERE dictionary_key=%s),
                                                             value=%s", $language, $key, $value );
-						$done = $wpdb->query( $sql );
+						$done = $db->query( $sql );
 					}
 				}
 			}
@@ -98,6 +102,7 @@ class admin {
                         <td><?php echo strlen( $key ) > 20 ? substr( $key, 0, 20 ) . '...' : $key; ?></td>
 						<?php
 						foreach ( $row as $index => $value ) {
+							$value=htmlspecialchars(stripslashes($value));
 							if ( ! $index ) {
 								echo sprintf( '<td>%s</td>', $value );
 							} else {

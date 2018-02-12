@@ -1,5 +1,7 @@
 <?php
 
+use \wpdb\wpdb as wpdb;
+
 class orm_home_slider implements crud {
 	protected $id;
 protected $priority;
@@ -19,7 +21,8 @@ protected function get_instance($id){
 	global $wpdb;
 	$query="SELECT * FROM wp_home_slider WHERE id=%s";
 	$prepare=$wpdb->prepare($query,$id);
-	$results=$wpdb->get_results($prepare);
+	$db=\wpdb\wpdb::get();
+	$results=$db->get_results($prepare);
 	$results=array_pop($results);
 	if(!$results){
 		$this->empty=true;
@@ -107,7 +110,8 @@ $this->priority = $results->priority;
 			$query = $wpdb->prepare( $query, $limit, $offset );
 		}
 
-		$results = $wpdb->get_results( $query );
+		$db=wpdb::get();
+		$results = $db->get_results( $query );
 
 		return $results;
 	}

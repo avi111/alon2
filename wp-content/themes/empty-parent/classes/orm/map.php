@@ -45,8 +45,9 @@ class map {
 
 	public function refresh(){
 		global $wpdb;
-		foreach ( $wpdb->get_col( "SHOW TABLES" ) as $table ) {
-			$tables[ $table ] = $wpdb->get_results( "DESCRIBE $table" );
+		$db=\wpdb\wpdb::get();
+		foreach ( $db->get_col( "SHOW TABLES" ) as $table ) {
+			$tables[ $table ] = $db->get_results( "DESCRIBE $table" );
 		}
 		$this->data = $tables;
 		$this->tables=array_keys($this->data);

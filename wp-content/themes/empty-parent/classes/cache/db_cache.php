@@ -26,15 +26,19 @@ class db_cache {
 	}
 
 	public function save_post( $id, $post, $bool ) {
-		array_map('unlink', glob("{$this->folder}/*"));
+		array_map( 'unlink', glob( "{$this->folder}/*" ) );
 	}
 
 	public function posts_results( $posts, $query ) {
-		$md5 = md5( serialize( $query->query_vars ) );
+		if ( is_object( $query ) ) {
+			$md5 = md5( serialize( $query->query_vars ) );
+		} else {
+			$md5 = md5( $query );
+		}
 		if ( $md5 && ! is_admin() ) {
 			$file      = $md5 . '.txt';
 			$full_path = $this->folder . $file;
-			if ( ! file_exists( $full_path )) {
+			if ( ! file_exists( $full_path ) ) {
 				$output = serialize( $posts );
 				self::create_folders_up_to_path( $full_path );
 				$write = file_put_contents( $full_path, $output );
@@ -46,9 +50,13 @@ class db_cache {
 
 
 	public function posts_pre_query( $something, $query ) {
-		$md5 = md5( serialize( $query->query_vars ) );
-		if(isset( $_GET['override_cache'] ) && $_GET['override_cache'] ){
-			array_map('unlink', glob("{$this->folder}/*"));
+		if ( is_object( $query ) ) {
+			$md5 = md5( serialize( $query->query_vars ) );
+		} else {
+			$md5 = md5( $query );
+		}
+		if ( isset( $_GET['override_cache'] ) && $_GET['override_cache'] ) {
+			array_map( 'unlink', glob( "{$this->folder}/*" ) );
 		}
 		if ( $md5 ) {
 			$file      = $md5 . '.txt';

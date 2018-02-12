@@ -1,0 +1,12 @@
+<div class="wp-tabbed-tabs" id="about">
+    <div class="container row">
+        <div class="col-md-9 col-sm-12">
+            <h1>{{ 'Dr.' | translate }} {{ site | translate }}</h1>
+            {{ content | translate | content | raw }}
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <img src="{{ image }}" alt="{{ site | translate }}">
+            <a class="btn btn-primary">{{ 'For more information about' | translate }} {{ 'Dr.' | translate }} {{ 'Skaat' | translate }}</a>
+        </div>
+    </div>
+</div>

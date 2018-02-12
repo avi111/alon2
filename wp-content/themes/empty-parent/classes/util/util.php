@@ -2,6 +2,8 @@
 
 namespace util;
 
+use \wpdb\wpdb as wpdb;
+
 class util {
 	public static function __callStatic( $name, $arguments=array() ) {
 		$method = new ReflectionMethod(static::class, $name);
@@ -46,7 +48,8 @@ class util {
 
 	public static function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
 		global $wpdb;
-		$page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s", $page_slug, $post_type ) );
+		$db=wpdb::get();
+		$page = $db->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s", $page_slug, $post_type ) );
 		if ( $page ) {
 			return get_post( $page, $output );
 		}

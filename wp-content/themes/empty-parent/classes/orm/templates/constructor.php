@@ -11,7 +11,8 @@ function get_instance($id){
 	global $wpdb;
 	$query="SELECT * FROM $table WHERE $primary=%s";
 	$prepare=$wpdb->prepare($query,$id);
-	$results=$wpdb->get_results($prepare);
+	$db=\wpdb\wpdb::get();
+	$results=$db->get_results($prepare);
 	$results=array_pop($results);
 	if(!$results){
 		$this->empty=true;
