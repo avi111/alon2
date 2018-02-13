@@ -11,6 +11,7 @@ namespace wpdb;
 
 class wpdb {
 	protected $wpdb;
+	protected $enable;
 	static protected $instance;
 
 	static public function get() {
@@ -26,64 +27,101 @@ class wpdb {
 	 */
 	private function __construct() {
 		global $wpdb;
-		$this->wpdb = $wpdb;
+		$this->wpdb   = $wpdb;
+		$this->enable = $this->getController();
+	}
+
+	protected function getController() {
+		$enable = of_get_option( 'db_cache' ) && ! is_admin();
+
+		return $enable;
 	}
 
 	public function query( $query ) {
-		$results = apply_filters( 'posts_pre_query', null, $query );
-		if ( $results ) {
-			return $results;
+		if ( $this->enable ) {
+			$results = apply_filters( 'posts_pre_query', null, $query );
+			if ( $results ) {
+				return $results;
+			} else {
+				$posts = $this->wpdb->query( $query );
+				$posts = apply_filters( 'posts_results', $posts, $query );
+
+				return $posts;
+			}
 		} else {
 			$posts = $this->wpdb->query( $query );
-			$posts = apply_filters( 'posts_results', $posts, $query );
 
 			return $posts;
 		}
 	}
 
 	public function get_var( $query = null, $x = 0, $y = 0 ) {
-		$results = apply_filters( 'posts_pre_query', null, $query );
-		if ( $results ) {
-			return $results;
+		if ( $this->enable ) {
+			$results = apply_filters( 'posts_pre_query', null, $query );
+			if ( $results ) {
+				return $results;
+			} else {
+				$posts = $this->wpdb->get_var( $query, $x, $y );
+				$posts = apply_filters( 'posts_results', $posts, $query );
+
+				return $posts;
+			}
 		} else {
 			$posts = $this->wpdb->get_var( $query, $x, $y );
-			$posts = apply_filters( 'posts_results', $posts, $query );
 
 			return $posts;
 		}
 	}
 
 	public function get_row( $query = null, $output = OBJECT, $y = 0 ) {
-		$results = apply_filters( 'posts_pre_query', null, $query );
-		if ( $results ) {
-			return $results;
+		if ( $this->enable ) {
+			$results = apply_filters( 'posts_pre_query', null, $query );
+			if ( $results ) {
+				return $results;
+			} else {
+				$posts = $this->wpdb->get_row( $query, $output, $y );
+				$posts = apply_filters( 'posts_results', $posts, $query );
+
+				return $posts;
+			}
 		} else {
 			$posts = $this->wpdb->get_row( $query, $output, $y );
-			$posts = apply_filters( 'posts_results', $posts, $query );
 
 			return $posts;
 		}
 	}
 
 	public function get_col( $query = null, $x = 0 ) {
-		$results = apply_filters( 'posts_pre_query', null, $query );
-		if ( $results ) {
-			return $results;
+		if ( $this->enable ) {
+			$results = apply_filters( 'posts_pre_query', null, $query );
+			if ( $results ) {
+				return $results;
+			} else {
+				$posts = $this->wpdb->get_col( $query, $x );
+				$posts = apply_filters( 'posts_results', $posts, $query );
+
+				return $posts;
+			}
 		} else {
 			$posts = $this->wpdb->get_col( $query, $x );
-			$posts = apply_filters( 'posts_results', $posts, $query );
 
 			return $posts;
 		}
 	}
 
 	public function get_results( $query = null, $output = OBJECT ) {
-		$results = apply_filters( 'posts_pre_query', null, $query );
-		if ( $results ) {
-			return $results;
+		if ( $this->enable ) {
+			$results = apply_filters( 'posts_pre_query', null, $query );
+			if ( $results ) {
+				return $results;
+			} else {
+				$posts = $this->wpdb->get_results( $query, $output );
+				$posts = apply_filters( 'posts_results', $posts, $query );
+
+				return $posts;
+			}
 		} else {
 			$posts = $this->wpdb->get_results( $query, $output );
-			$posts = apply_filters( 'posts_results', $posts, $query );
 
 			return $posts;
 		}

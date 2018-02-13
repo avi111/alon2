@@ -5,6 +5,8 @@ Template: empty-parent
 @import "mini.css/src/flavors/mini-default.scss";
 
 $container-width: 1170px;
+$blue: #50b5cb;
+$contact-width: 33.333%;
 
 @mixin container() {
   max-width: $container-width;
@@ -136,5 +138,29 @@ header {
     a {
       display: block;
     }
+  }
+}
+
+.blue-bg {
+  background: $blue;
+}
+
+#single-layout {
+  .tab-0 {
+    width: #{100 - $contact-width};
+  }
+
+  .tab-1 {
+    width: $contact-width;
+  }
+}
+
+#side-contact-form {
+  input[type="text"], textarea {
+    width: 100%;
+  }
+
+  label {
+    padding:0;
   }
 }

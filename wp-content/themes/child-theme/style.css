@@ -2008,3 +2008,18 @@ html[dir="ltr"] #header-top .block {
   white-space: initial; }
   .drawer header a {
     display: block; }
+
+.blue-bg {
+  background: #50b5cb; }
+
+#single-layout .tab-0 {
+  width: 66.667%; }
+
+#single-layout .tab-1 {
+  width: 33.333%; }
+
+#side-contact-form input[type="text"], #side-contact-form textarea {
+  width: 100%; }
+
+#side-contact-form label {
+  padding: 0; }

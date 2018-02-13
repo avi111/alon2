@@ -1,0 +1,1 @@
+a:3:{s:2:"id";s:2:"67";s:14:"dictionary_key";s:36:"number_is_smaller_than_minimum_limit";s:5:"value";s:36:"Number is smaller than minimum limit";}

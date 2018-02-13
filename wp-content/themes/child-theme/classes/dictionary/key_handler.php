@@ -36,7 +36,7 @@ class key_handler {
 			$this->value = $record['value'] ?? null;
 		}
 
-		if ( ! $this->id ) {
+		if ( ! $this->id && $this->key) {
 			$insert = $wpdb->insert( $table,
 				array(
 					'dictionary_key' => $this->key,

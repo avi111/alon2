@@ -12,8 +12,14 @@ if ( is_home() || is_front_page() ) {
 	dynamic_sidebar( 'homepage' );
 }
 
-if(is_single() || is_page()){
-	dynamic_sidebar( 'single' );
+if ( is_single() || is_page() ) {
+	?>
+    <div class="container">
+		<?php
+		dynamic_sidebar( 'single' );
+		?>
+    </div>
+	<?php
 }
 
 get_footer();

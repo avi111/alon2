@@ -1,0 +1,1 @@
+a:3:{s:2:"id";s:2:"72";s:14:"dictionary_key";s:50:"telephone_number_that_the_sender_entered_is_invali";s:5:"value";s:51:"Telephone number that the sender entered is invalid";}

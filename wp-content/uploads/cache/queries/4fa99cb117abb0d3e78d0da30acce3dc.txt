@@ -1,0 +1,1 @@
+a:3:{s:2:"id";s:2:"60";s:14:"dictionary_key";s:34:"date_is_earlier_than_minimum_limit";s:5:"value";s:34:"Date is earlier than minimum limit";}

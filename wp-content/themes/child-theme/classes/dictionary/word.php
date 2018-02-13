@@ -73,7 +73,7 @@ class word {
 			$db=wpdb::get();
 			if ( $this->direct ) {
 				$prepared = $wpdb->prepare( "SELECT l.`locale`,v.`value` as lang_value, k.`value` as `english_value` FROM `{$wpdb->prefix}dictionary_values` v INNER JOIN `{$wpdb->prefix}dictionary_languages` l ON v.`language`=l.id INNER JOIN `{$wpdb->prefix}dictionary_keys` k ON v.`dictionary_key`=k.id WHERE k.`dictionary_key`=%s", $this->key );
-				$results  = $db->get_row( $prepared, ARRAY_A );
+				$results  = $wpdb->get_row( $prepared, ARRAY_A );
 				if ( $results ) {
 					if ( $results['locale'] == get_locale() ) {
 						$this->value = $results['lang_value'];
@@ -86,7 +86,7 @@ class word {
 				$lang        = $this->language->getId();
 				$key         = $this->key_record->getId();
 				$prepared    = $wpdb->prepare( "SELECT `value` FROM $table WHERE `language`=%d AND `dictionary_key`=%d", $lang, $key );
-				$this->value = $db->get_var( $prepared );
+				$this->value = $wpdb->get_var( $prepared );
 				if ( ! $this->value ) {
 					$this->value = $this->key_record->getValue();
 				}
@@ -94,7 +94,7 @@ class word {
 
 			if ( ! $this->value ) {
 				$this->setValue();
-				$this->value = $this->key;
+				$this->value = $this->unsanitized;
 			}
 
 			self::$cache[ $this->key ] = $this->value;

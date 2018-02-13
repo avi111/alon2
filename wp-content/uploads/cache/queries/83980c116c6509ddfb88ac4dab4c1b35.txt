@@ -1,0 +1,1 @@
+a:3:{s:2:"id";s:2:"69";s:14:"dictionary_key";s:50:"sender_doesnt_enter_the_correct_answer_to_the_quiz";s:5:"value";s:51:"Sender doesn't enter the correct answer to the quiz";}

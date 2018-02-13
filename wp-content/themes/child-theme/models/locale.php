@@ -7,7 +7,12 @@
  */
 
 add_filter( 'default_locale', function () {
-	return 'he_IL';
+	if ( ! is_admin() ) {
+		return 'he_IL';
+	} else {
+		return 'en_US';
+	}
+
 } );
 
 add_filter( 'language_attributes', function ( $output, $doctype ) {
@@ -19,4 +24,21 @@ add_filter( 'language_attributes', function ( $output, $doctype ) {
 	return $output;
 }, 10, 2 );
 
-new dictionary\admin();
+add_filter('placeholder_name',function($word){
+	if(!is_admin()) {
+		return $word . '*';
+	} else {
+		return $word;
+	}
+});
+
+add_filter('placeholder_phone',function($word){
+	if(!is_admin()) {
+		return $word . '*';
+	} else {
+		return $word;
+	}
+});
+
+new \dictionary\admin();
+new \dictionary\wpcf7();

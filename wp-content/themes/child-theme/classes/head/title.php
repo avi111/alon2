@@ -24,8 +24,12 @@ class title {
 		if ( is_front_page() ) {
 			$title = 'home';
 		}
-		$this->page_title = ( new word( $title ) )->getValue();
-		$this->site_name  = ( new word( get_bloginfo() ) )->getValue();
+		if ( is_front_page() || is_page() ) {
+			$this->page_title = ( new word( $title ) )->getValue();
+		} else {
+			$this->page_title = $title;
+		}
+		$this->site_name = ( new word( get_bloginfo() ) )->getValue();
 		$this->set_html_title();
 	}
 
