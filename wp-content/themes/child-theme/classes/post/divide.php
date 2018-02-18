@@ -15,6 +15,7 @@ class divide {
 	protected $top;
 	protected $bottom;
 	protected $content;
+	protected $title;
 
 	const delimiter = '<!--more-->';
 
@@ -34,7 +35,7 @@ class divide {
 	 */
 	protected function getPost() {
 		if ( ! $this->post ) {
-			$this->post    = new post( $this->id );
+			$this->post    = new post( $this->id, false );
 			$this->content = $this->post->post_content;
 		}
 
@@ -44,21 +45,40 @@ class divide {
 	/**
 	 * @return mixed
 	 */
-	public function getTop() {
-		return $this->top;
+	public function getTop( $filtered = true ) {
+		if ( $filtered ) {
+			return apply_filters( 'the_content', $this->top );
+		} else {
+			return $this->top;
+		}
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getBottom() {
-		return $this->bottom;
+	public function getBottom( $filtered = true ) {
+		if ( $filtered ) {
+			return apply_filters( 'the_content', $this->bottom );
+		} else {
+			return $this->bottom;
+		}
 	}
 
 	protected function divide() {
 		$exploded     = explode( self::delimiter, $this->content );
 		$this->top    = array_shift( $exploded );
 		$this->bottom = implode( '', $exploded );
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getTitle() {
+		if ( ! $this->title ) {
+			$this->title = $this->getPost()->post_title;
+		}
+
+		return $this->title;
 	}
 
 }

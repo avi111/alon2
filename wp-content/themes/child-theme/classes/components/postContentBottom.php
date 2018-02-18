@@ -9,24 +9,12 @@
 namespace components;
 
 
-class postContentBottom extends component {
+class postContentBottom extends postContent {
+	protected function getContent() {
+		return $this->divided->getBottom();
+	}
 
-	protected $atts;
-	public $get;
-
-	/**
-	 * widget_class constructor.
-	 */
-	public function __construct( $atts ) {
-		$this->atts = $atts;
-
-		global $post;
-		$divided = new \post\divide( $post->ID );
-
-		$this->get = $divided->getBottom();
-
-		if ( ! is_single() ) {
-			$this->get = ( new \dictionary\word( $this->get ) )->getValue();
-		}
+	protected function getUnfiltered() {
+		return $this->divided->getBottom(false);
 	}
 }

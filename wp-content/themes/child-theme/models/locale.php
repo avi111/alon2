@@ -24,21 +24,22 @@ add_filter( 'language_attributes', function ( $output, $doctype ) {
 	return $output;
 }, 10, 2 );
 
-add_filter('placeholder_name',function($word){
-	if(!is_admin()) {
+add_filter( 'placeholder_name', function ( $word ) {
+	if ( ! is_admin() ) {
 		return $word . '*';
 	} else {
 		return $word;
 	}
-});
+} );
 
-add_filter('placeholder_phone',function($word){
-	if(!is_admin()) {
+add_filter( 'placeholder_phone', function ( $word ) {
+	if ( ! is_admin() ) {
 		return $word . '*';
 	} else {
 		return $word;
 	}
-});
+} );
 
 new \dictionary\admin();
 new \dictionary\wpcf7();
+new \dictionary\save();

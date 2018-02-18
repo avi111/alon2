@@ -16,6 +16,7 @@ class setup {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'custom_post_type' ), 0 );
+		new shortcode();
 	}
 
 	// Register Custom Post Type

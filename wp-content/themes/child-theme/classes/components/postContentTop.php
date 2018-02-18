@@ -8,27 +8,22 @@
 
 namespace components;
 
-
-class postContentTop extends component {
-
-	protected $atts;
-	public $get;
+class postContentTop extends postContent {
 	public $title;
 
-	/**
-	 * widget_class constructor.
-	 */
 	public function __construct( $atts ) {
-		$this->atts = $atts;
-		global $post;
-		$divided = new \post\divide( $post->ID );
-
-		$this->get = $divided->getTop();
-		$this->title = $post->post_title;
-
-		if(!is_single()){
-			$this->get = (new \dictionary\word($this->get))->getValue();
-			$this->title = (new \dictionary\word($this->title))->getValue();
-		}
+		parent::__construct( $atts );
+		$this->title = ( new \dictionary\word( $this->divided->getTitle() ) )->getValue();
 	}
+
+
+	protected function getContent() {
+		return $this->divided->getTop();
+	}
+
+	protected function getUnfiltered() {
+		return $this->divided->getTop( false );
+	}
+
+
 }
