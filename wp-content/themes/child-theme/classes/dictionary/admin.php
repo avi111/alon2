@@ -19,9 +19,19 @@ class admin {
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'dictionary_page' ) );
+		add_action( 'wp_ajax_delete_dictionary_record', array( $this, 'delete_dictionary_record' ) );
 		add_action( 'init', function () {
 			$this->dictionary = new dictionary();
 		} );
+	}
+
+	public function delete_dictionary_record() {
+		$key = $_POST['key'] ?? null;
+		if ( $key ) {
+			$handler = new key_handler( $key );
+			$delete  = \orm_dictionary_keys::delete( $handler->getId() );
+			exit();
+		}
 	}
 
 	public function dictionary_page() {
@@ -52,20 +62,26 @@ class admin {
 			}
 
 			global $wpdb;
-			$db=wpdb::get();
+			$db = wpdb::get();
 
 			foreach ( $data as $key => $languages ) {
 				foreach ( $languages as $language => $value ) {
 					if ( ! is_null( $table[ $key ][ $language ] ) ) {
-						$sql  = $wpdb->prepare( "UPDATE {$wpdb->prefix}dictionary_values v INNER JOIN {$wpdb->prefix}dictionary_keys k ON v.dictionary_key=k.id SET v.value=%s WHERE k.dictionary_key=%s AND v.language=%d", $value, $key, $language );
-
+						if ( ! $language ) {
+							$sql = $wpdb->prepare( "UPDATE {$wpdb->prefix}dictionary_keys SET value=%s WHERE dictionary_key=%s", $value, $key );
+						} else {
+							$sql = $wpdb->prepare( "UPDATE {$wpdb->prefix}dictionary_values v INNER JOIN {$wpdb->prefix}dictionary_keys k ON v.dictionary_key=k.id SET v.value=%s WHERE k.dictionary_key=%s AND v.language=%d", $value, $key, $language );
+						}
 						$done = $db->query( $sql );
+
 					} else {
-						$sql  = $wpdb->prepare( "INSERT INTO {$wpdb->prefix}dictionary_values SET 
+						if ( $language ) {
+							$sql  = $wpdb->prepare( "INSERT INTO {$wpdb->prefix}dictionary_values SET 
                                                             language=%d,
                                                             dictionary_key=(SELECT id FROM {$wpdb->prefix}dictionary_keys WHERE dictionary_key=%s),
                                                             value=%s", $language, $key, $value );
-						$done = $db->query( $sql );
+							$done = $db->query( $sql );
+						}
 					}
 				}
 			}
@@ -92,6 +108,7 @@ class admin {
 						echo sprintf( '<th>%s</th>', $language->language );
 					}
 					?>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -102,14 +119,12 @@ class admin {
                         <td><?php echo strlen( $key ) > 20 ? substr( $key, 0, 20 ) . '...' : $key; ?></td>
 						<?php
 						foreach ( $row as $index => $value ) {
-							$value=htmlspecialchars(stripslashes($value));
-							if ( ! $index ) {
-								echo sprintf( '<td>%s</td>', $value );
-							} else {
-								echo sprintf( '<td><input name="%s[%d]" type="text" value="%s"></td>', $key, $index, $value );
-							}
+							$value = htmlspecialchars( stripslashes( $value ) );
+							echo sprintf( '<td><input name="%s[%d]" type="text" value="%s"></td>', $key, $index, $value );
 						}
 						?>
+                        <td><a href="javascript:void(0)"
+                               onclick="delete_dictionary_record('<?php echo $key; ?>')">Delete</a></td>
                     </tr>
 					<?php
 				}
@@ -137,6 +152,17 @@ class admin {
                 width: 100%;
             }
         </style>
+
+        <script>
+            function delete_dictionary_record(key) {
+                jQuery.post('<?php echo admin_url( 'admin-ajax.php' ); ?>', {
+                    action: 'delete_dictionary_record',
+                    key: key
+                }, function (result) {
+                    window.location.reload();
+                })
+            }
+        </script>
 		<?php
 	}
 

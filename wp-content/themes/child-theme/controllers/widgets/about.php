@@ -1,6 +1,6 @@
 <?php
 
 $fragment = $widget->getFragment();
-$content  = $fragment->content();
+$content  = $widget->getContent();
 $image    = $fragment->getImage();
 $site     = get_bloginfo();

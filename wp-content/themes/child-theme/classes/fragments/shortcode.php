@@ -26,16 +26,13 @@ class shortcode {
 		$content = str_replace( '”', '"', esc_sql( html_entity_decode( $content ) ) );
 
 		global $wpdb;
-		$db           = \wpdb\wpdb::get();
-		$query        = $wpdb->prepare( "SELECT post_content FROM $wpdb->posts WHERE post_title = %s AND post_type= 'fragment' AND post_status='publish'", $content );
-		$post_content = $db->get_var( $query );
+		$db    = \wpdb\wpdb::get();
+		$query = $wpdb->prepare( "SELECT post_name FROM $wpdb->posts WHERE post_title = %s AND post_type= 'fragment' AND post_status='publish'", $content );
+		$slug  = $db->get_var( $query );
 
-		if ( $post_content ) {
-			return sprintf( '<div%s class="fragment">%s</div>', $id, $post_content );
-		} else {
-			$translation=( new \dictionary\word( $content ) )->getValue();
-			return sprintf( '<div%s class="fragment">%s</div>', $id, $translation );
-		}
+		$translation = ( new \dictionary\word( $slug ) )->getValue();
+
+		return sprintf( '<div%s class="fragment">%s</div>', $id, $translation );
 
 	}
 }

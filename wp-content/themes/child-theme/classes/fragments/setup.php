@@ -23,7 +23,7 @@ class setup {
 	public function custom_post_type() {
 		$args = array(
 			'label'              => __( 'Fragments', 'avraham' ),
-			'supports'           => array( 'title', 'editor', 'thumbnail' ),
+			'supports'           => array( 'title', 'thumbnail' ),
 			'hierarchical'       => false,
 			'public'             => true,
 			'show_ui'            => true,
